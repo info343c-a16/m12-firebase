@@ -6,7 +6,7 @@
     <meta charset="utf-8">
 
     <!-- Give your page a title "Exercise ###" -->
-    <title>Exercise ###</title>
+    <title>Module 12: Ex. 1</title>
 
     <!-- Set the author of the page to your name -->
     <meta author="your-name">
@@ -14,20 +14,58 @@
     <!-- Set device width to ensure proper renering on mobile devices -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- Font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css" />
+
     <!-- Read in css file -->
     <link href="css/main.css" rel="stylesheet" type="text/css">
+
+    <!-- jquery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
 
     <!-- Read in Firebase script -->
     <script src="https://www.gstatic.com/firebasejs/3.4.0/firebase.js"></script>
 
     <!-- Read in JavaScript file -->
     <script type="text/javascript" src="js/main.js"></script>
+
 </head>
 
 <body>
+    <header>
+        <nav class="navbar">Todo List</nav>
+    </header>
     <main>
         <!-- Create a section element in your page in which you'll arrand elements -->
         <section>
+            <form class="container">
+                <div class="input-field col s12">
+                    <input id="todo" type="text" required>
+                    <label for="todo">New Todo Item</label>
+                </div>
+                <p>
+                    <input name="priority" type="radio" id="low" required/>
+                    <label for="low">Low Priority</label>
+                </p>
+                <p>
+                    <input name="priority" type="radio" id="medium" />
+                    <label for="medium">Important</label>
+                </p>
+                <p>
+                    <input name="priority" type="radio" id="high" />
+                    <label for="high">Urgent</label>
+                </p>
+                <button class="btn" type="submit">Add Item</button>
+            </form>
+            <div id="todo-list" class="container">
+
+            </div>
 
         </section>
     </main>

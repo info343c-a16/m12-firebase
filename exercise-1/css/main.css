@@ -1,1 +1,51 @@
 /* Assign styles here */
+
+nav {
+    font-size: 3rem;
+    font-weight: 100;
+    padding-left: 20px;
+}
+
+form.container {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #d3d3d3;
+    margin-bottom: 10px;
+}
+
+.todo {
+    margin: 1px;
+    padding: 3px;
+}
+
+.todo h5 {
+    display: inline;
+}
+
+.low {
+    background-color: rgba(0, 128, 0, 0.29);
+}
+
+.medium {
+    background-color: rgba(255, 255, 0, 0.41);
+}
+
+.high {
+    background-color: rgba(247, 3, 3, 0.31);
+}
+
+i {
+    float: right;
+    opacity: .7;
+    cursor: pointer;
+    /*margin: 0px;*/
+    padding-top: 3 px;
+}
+
+i.complete {
+    color: green;
+}
+
+h5.complete {
+    text-decoration: line-through;
+    opacity: .5;
+}

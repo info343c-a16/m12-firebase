@@ -80,7 +80,23 @@ From this location, you should click on _Add Firebase to your web app_ to access
 
 ![add project to web app](imgs/add-to-app.png)
 
-You will now have access to your firebase database from your web application.
+In order to read and write data to your database, you'll either need to authenticate your users (more on this in the next learning module), or change your **database rules**. To enable read/write access by _anyone_ (not necessarily suggested from a security standpoint), you'll need to navigate to the database/rules tab and enter the following code:
+
+```javascript
+{
+"rules": {
+  ".read": true,
+  ".write": true
+}
+}
+
+```
+
+When you do this and click **Publish**, your should see the following screen:
+
+![firebase database rules menu](imgs/rules.png)
+
+You will now (finally) have access to your firebase database from your web application.
 
 ## Data Structure
 In order to properly use Firebase as a data storage service, it's crucial to understand _how_ that data is structured. **All** of the data for a project is stored in the same JSON (JavaScript Object Notation) object. In other words, all of the data is stored in a single object (just as you would store information in an object in JavaScript). For example, if you had a simple to do list applicaiton, the data could be stored as follows:
@@ -103,6 +119,7 @@ In order to properly use Firebase as a data storage service, it's crucial to und
     }
 }
 ```
+
 Data from your tree is accessed just like referencing information from an Object: using it's **key**. Object keys can be specified from your JavaScript file, or will be assigned automatically in Firebase. While we won't encounter any _huge_ data in this class, it's important to understand [best practices](https://firebase.google.com/docs/database/web/structure-data) for storing data, such as limiting the amount of nesting you do in your JSON Tree.
 
 ## Database Interactions
@@ -125,12 +142,31 @@ Firebase is intelligent enough to create _new_ child elements on the tree when y
 
 ```javascript
 // Create a reference to a new child called "todos"
-firebase.database().ref('todos');
+var todos = firebase.database().ref('todos');
 ```
 
 
 ### Creating Data
-Once you have created a reference, you'll be able to store data in your database.
+Once you have created a reference, you'll be able to store data in your database. The method for creating your elements will depend on your data structure, but let's imagine that our `todos` reference is supposed to have _multiple child elements_, each with key/value pairs explaining an item on a to-do list. To add a new item, you can specify the `push` method:
+
+```javascript
+// Create a reference to a new child called "todos"
+var todos = firebase.database().ref('todos');
+
+// Write a new item
+// Push something into todos
+todos.push({
+    description: 'Write learning modules',
+    urgency: 'High',
+    status: 'incomplete'
+});
+```
+
+As soon as you execute that code, an child element will be added to the `todos` reference (which is a child of the _root_ element):
+
+![firebase database with todo element](imgs/todos.png)
+
+
 
 ### Reading Data
 
