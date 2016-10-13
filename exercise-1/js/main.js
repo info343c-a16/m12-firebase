@@ -11,7 +11,7 @@ $(function() {
     firebase.initializeApp(config);
 
     // Create new database reference
-    var todos = firebase.database().ref('todos/');
+    var todos = firebase.database().ref('todos');
 
     // Set listener: on change, empty the todo list, and iterate through to make a new list
     todos.on('value', function(snapshot) {
@@ -21,15 +21,14 @@ $(function() {
         var items = snapshot.val();
         if (items !== null) {
             Object.keys(items).forEach(function(key) {
-                if (!key) return;
-                makeTodo(key, items[key]);
+                renderTodo(key, items[key]);
             });
         }
 
     });
 
     // Function to make todos
-    var makeTodo = function(id, content) {
+    var renderTodo = function(id, content) {
         // Create new todo <div> with classes 'todo', and the priority of the item
         var newTodo = $('<div>').attr('class', 'todo ' + content.priority);
 
@@ -43,7 +42,7 @@ $(function() {
             // Flip the status on click
             var status = content.status == 'complete' ? 'incomplete' : 'complete';
 
-            // Set the child value
+            // Set the child values of this item
             todos.child(id).set({
                 description: content.description,
                 priority: content.priority,
@@ -55,7 +54,6 @@ $(function() {
         var deleteIcon = $('<i>').attr('class', "fa fa-times fa-2x");
         deleteIcon.on('click', function() {
             todos.child(id).remove();
-            console.log('delete');
         });
 
         // Append the icons to the newTodo item
@@ -80,6 +78,7 @@ $(function() {
             status: 'incomplete'
         });
 
+        // Reset the form
         this.reset();
     });
 });

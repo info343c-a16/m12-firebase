@@ -23,7 +23,6 @@ Firebase is a _cloud hosted data service_ that we will use to store data for our
 - [Firebase Homepage](https://firebase.google.com/)
 - [Getting Started](https://firebase.google.com/docs/web/setup)
 - [Firebase Data Structure](https://firebase.google.com/docs/database/web/structure-data)
-https://www.firebase.com/docs/android/guide/structuring-data.html
 - [Reading and Writing to a Database](https://firebase.google.com/docs/database/web/read-and-write)
 - [Create a Firebase Storage Reference](https://firebase.google.com/docs/storage/web/create-reference)
 
@@ -158,7 +157,7 @@ var todos = firebase.database().ref('todos');
 todos.push({
     description: 'Write learning modules',
     urgency: 'High',
-    status: 'incomplete'
+    priority: 'incomplete'
 });
 ```
 
@@ -167,9 +166,82 @@ As soon as you execute that code, an child element will be added to the `todos` 
 ![firebase database with todo element](imgs/todos.png)
 
 
-
 ### Reading Data
+When you create a reference to a Firebase data store, you can listen to changes to that part of your data structure. There are a variety of methods for listening to event changes, the first of which we'll introduce is `value`.
+
+Setting an event listener on `value` will return the data _when the connection is made_, as well as any time that there is a change to the reference (include _all children_):
+
+```javascript
+// Create a reference to a new child called "todos"
+var todos = firebase.database().ref('todos');
+
+// Listen to changes to 'todos': will execute on connection, and on any change
+todos.on('value', function(snapshot) {
+    // Get the value of the data
+    var data = snapshot.val();
+
+    // Do whatever you want with the Object...
+});
+```
+
+In the above code, `snapshot` contains a snapshot of the data structure at the time of the event. To retrieve the values _from_ the snapshot, the `snapshot.val()` method is invoked. This will return the data object with child elements of key/value pairs.
+
+If there is data that you only need to read _once_, you can invoke the `once` method, which _will not_ listen to changes to the reference.
+
+```javascript
+todos.once('value').then(function(snapshot){
+    // Get the value of the data
+    var data = snapshot.val();
+
+    // Do whatever you want with the Object...
+})
+```
 
 ### Updating Data
+Using the _keys_ of particular objects, you can easily modify the contents of your Firebase database. First, let's consider how we can _get_ the keys of each element in our data store:
+
+```javascript
+// Listen to changes to 'todos': will execute on connection, and on any change
+todos.on('value', function(snapshot) {
+    // Get the value of the data
+    var data = snapshot.val();
+
+    // Iterate through key/value pairs
+    Object.keys(data).forEach(function(key) {
+        // Get value of object using key
+        var value = data[key];
+
+        // Create an element with the key as an ID
+        var body = $('body');
+        var button = $('<button>').attr('id', key);
+        button.on('click', function() {
+            // Get the key back from the button
+            var key = this.id;
+
+            // Update element
+        });
+        body.append(button);
+    });
+});
+```
+In the above example, we're keeping track of the key by storing it in the `id` of the `<button>` that we create. Then, in the `onClick` function, we're able to reference the `id` to reference the key of our data store.
+
+To update our element, we will create a reference to it using the `child` method of the `todos` reference, and `set` the values:
+
+```javascript
+// Set the child value
+todos.child(id).set({
+    description: 'new description',
+    priority: 'new prioirty',
+    status: 'new status'
+});
+```
+### Deleting Elements
+Elements can be deleted using the `remove` method. Again, if you keep track of the `key` of each object, referencing (and removing it) is simple:
+
+```javascript
+    todos.child(id).remove();
+```
+
 
 ## Firebase Storage
