@@ -1,6 +1,6 @@
 // Main.js
 $(function() {
-    // Initialize Firebase
+    // Initialize Firebase using the configuration of your project
     var config = {
         apiKey: "AIzaSyCp0ErFpwVFcKeFI5vDjjFFKV0GELFDPTE",
         authDomain: "test-project-578fc.firebaseapp.com",
@@ -10,7 +10,7 @@ $(function() {
     };
     firebase.initializeApp(config);
 
-    // Create new database reference
+    // Create new database reference 'todos'
     var todos = firebase.database().ref('todos');
 
     // Set listener: on change, empty the todo list, and iterate through to make a new list

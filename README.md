@@ -232,7 +232,7 @@ To update our element, we will create a reference to it using the `child` method
 // Set the child value
 todos.child(id).set({
     description: 'new description',
-    priority: 'new prioirty',
+    priority: 'new priority',
     status: 'new status'
 });
 ```

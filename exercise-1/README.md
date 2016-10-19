@@ -19,28 +19,35 @@ Following the instructions in this learning module, set up (and connect to) a Fi
 - Include the Firebase script in your `index.html` file:
     `<script src="https://www.gstatic.com/firebasejs/3.4.0/firebase.js"></script>`
 - In your `main.js` file, use the project configuration information to initialize a connection to Firebase
-- Create a **reference** to a _new_ element in your data structure called _todos_
 
 ## Creating data
-You'll use the form (already built) to collect information from your users. In the `main.js` file, there is already a `submit` event assigned to the form. Inside the `submit` event, you should do the following (the information is already retrieved from the `input` elements)
+For this exercise, you'll use the form (already built) to collect information from your users. First, you'll need to do the following in your `main.js` file:
+
+- Create a **reference** to a _new_ element in your data structure called `todos`
+
+You'll use that reference to push new data up to fireabse. Then, (still in the `main.js` file), there is already a `submit` event assigned to the form. Inside the `submit` event, you should do the following (the information is already retrieved from the `input` elements)
 
 - Push a new element into your `todos` reference with the following structure:
 
 ```javascript
 {
-    description: text, // 'text' is retrieved from the from
-    priority: priority, // 'priority' is retrieved from the from
-    status: 'incomplete' // by default, items are incomplete
+    description: text, // 'text' is retrieved from the form
+    priority: priority, // 'priority' is retrieved from the form
+    status: 'incomplete' // by default, items should be incomplete
 }
 ```
+
+Once you have done this, check that your database on Firebase has been updated.
 
 ## Reading Data
 Now that we're able to create data, we want to _listen_ to changes in our data structure. This will trigger when the data is loaded, and each time it changes.
 
 - Using the `.on('value')` listener, set an event listener on your `todos` reference
 - Once the data is loaded, get the value of the current data using the `snapshot.val()` method
-- Using `Object.keys`, iterate through the _key_ of the data object returned to you
-- In each iteration, pass the _key_ and _value_ of each _todo_ item to the renderTodo function (more on this below)
+- Using `Object.keys`, iterate through the _keys_ of the data object returned to you
+- In each iteration, pass the _key_ and _value_ of each _todo_ item to the `renderTodo` function (more on this below)
+
+I suggest putting a `console.log` statement in the `renderTodo` function to make sure it's working properly.
 
 ## Rendering Data
 Your `renderTodo` function should receive the _key_ and _value_ of each _todo_ item whenever there is a data change (from section above). With each item, you'll do the following (note, you'll modify this process in the next section):
@@ -55,7 +62,17 @@ Your `renderTodo` function should receive the _key_ and _value_ of each _todo_ i
 You'll want a way to _update_ the _status_ of each element (`complete`, `incomplete`). To do this, we'll add a font-awesome checkbox to the `<div>` element from the previous section. All steps should be in your `renderTodo`
 function:
 
-- Using jQuery, create a font-awesome checkbox element
+- Using jQuery, create a font-awesome checkbox element (`fa-check`)
 - Assign a _class_ to your checkbox element that is equal to the current _status_
 - Assign a click event to your checkbox element, in which you do the following:
+  - Determine the _new status_ (i.e., switch from `complete` to `incomplete`)
+  - Use the `set` method to change the value on Firebase
 - Append your font-awesome checkbox icon to your `<div>` element
+
+## Deleting Data
+Finally, you'll want a way to _delete_ an element on Firebase. To provide a UI to do this, we'll add a font-awesome `fa-times` to the `<div>` element from the previous section. All steps should be in your `renderTodo` function:
+
+- Using jQuery, create a font-awesome times element (`fa-times`)
+- Assign a click event to your times element, in which you do the following:
+  - Use the `remove` function to remove the child element from the `todos` data
+- Append your font-awesome times icon to your `<div>` element
