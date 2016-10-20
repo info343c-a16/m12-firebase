@@ -30,9 +30,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
 
     <!-- Read in Firebase script -->
-    <script src="https://www.gstatic.com/firebasejs/3.4.0/firebase.js"></script>
 
-    <!-- Read in JavaScript file -->
+
+    <!-- Read in your JavaScript file -->
     <script type="text/javascript" src="js/main.js"></script>
 
 </head>
@@ -42,7 +42,7 @@
         <nav class="navbar">Todo List</nav>
     </header>
     <main>
-        <!-- Create a section element in your page in which you'll arrand elements -->
+        <!-- Form for collecting information -->
         <section>
             <form class="container">
                 <div class="input-field col s12">
@@ -63,10 +63,11 @@
                 </p>
                 <button class="btn" type="submit">Add Item</button>
             </form>
-            <div id="todo-list" class="container">
 
-            </div>
-
+        </section>
+        <!-- Section containing the todo list -->
+        <section>
+          <div id="todo-list" class="container"></div>
         </section>
     </main>
 
