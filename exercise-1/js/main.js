@@ -38,7 +38,7 @@ $(function() {
         // Update Data: create a check icon with click event
             // Flip the status on click
             // Set the child values of the item
-        var checkIcon = $('<i>', { 'class': 'fa fa-check' });
+        var checkIcon = $('<i>', { 'class': 'fa fa-check fa-2x' });
         checkIcon.click(function(){
             todos.child(id).set({
                 description: content.description,
@@ -48,7 +48,7 @@ $(function() {
         });
 
         // Deleting data: Delete icon: on click, remove the reference
-        var delIcon = $('<i>', { 'class': 'fa fa-times' });
+        var delIcon = $('<i>', { 'class': 'fa fa-times fa-2x' });
         delIcon.click(function() {
             todos.child(id).remove();
         });
