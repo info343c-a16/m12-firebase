@@ -299,4 +299,17 @@ fileRef.put(file).then(function(){
 });
 ```
 
+To retrieve elements from Firebase storage, you'll want to get the URL of the file location, then do something in the callback function:
+
+```javascript
+fileRef.put(file).then(function(){
+    // Get download URL, then do something with it
+    fileRef.getDownloadURL().then(function(url) {
+        // Do something with the URL of your file
+    });
+});
+
+```
+Note, there is currently **no supported way** to listen to changes to Firebase storage, so you'll need to think of a thoughtful way to use it in conjunction with Firebase database if you want to track changes.
+
 To practice uploading files to Firebase storage, see [exercise-2](exercise-2).
