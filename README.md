@@ -245,3 +245,58 @@ Elements can be deleted using the `remove` method. Again, if you keep track of t
 
 
 ## Firebase Storage
+In addition to providing a realtime database, Firebase provides a **storage** service in which you can store documents such as images. While we used `firebase.database()` to reference the _database_ section of our project, we'll use `firebase.storage()` to return an object that points to our _storage_ section of a project. The syntax follows a similar structure for uploading images. However, before we can leverage the firebase functions, we'll need to use an HTML form to upload a document onto a webpage (then we can _push_ that document up to Firebase):
+
+```html
+<form >
+  <input type="file">
+</form>
+```
+
+**Input** elements with `type=file` create a button that will open up your file system and allow you to choose a file to upload into your application. We can make this a bit nicer using materialize:
+
+```html
+<!-- Leveraging materialize classes: from documentation -->
+<form>
+    <div class="file-field input-field">
+        <div class="btn">
+            <span>File</span>
+            <input type="file" id="file-upload">
+        </div>
+        <div class="file-path-wrapper">
+            <input class="file-path validate" type="text">
+        </div>
+    </div>
+ </form>
+```
+
+The `<span>` element in the code section above will look like a button for you user, and the `<input>` element will display your uploaded form. This will enable your user to upload a file into your web browser. Once you have uploaded a file, you can select it using jQuery:
+
+```javascript
+// Get the first file of the uploaded files from the input element
+var file = $("#file-upload")[0].files[0]
+```
+
+The next step is to take the file and push it up to Firebase's storage. This is best done in two steps. First, you'll need to create a **reference** to a particular point in your storage data structure (it's also a tree structure, though the UI is a bit different). You'll likely want to explicitly name your file so that it's easy to retrieve.
+
+```javascript
+// Create a Firebase storage object
+var storage = firebase.storage();
+
+// Create a reference to a particular filename
+var fileRef = storage.ref('filename')
+```
+
+Once you've created a reference, you can use the `put` method to _put_ a file in the specified location:
+
+```javascript
+// Get the file
+var file = $("#file-upload")[0].files[0]
+
+// Put a file in the specified location, then do something on success
+fileRef.put(file).then(function(){
+    // Do something after the file has been uploaded
+});
+```
+
+To practice uploading files to Firebase storage, see [exercise-2](exercise-2).
